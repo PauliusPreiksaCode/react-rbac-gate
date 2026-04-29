@@ -1,6 +1,6 @@
 {
   "name": "react-rbac-gate",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Lightweight, flexible role-based access control for React. Supports role hierarchy, permissions, custom rules, and debug mode.",
   "keywords": [
     "react",
