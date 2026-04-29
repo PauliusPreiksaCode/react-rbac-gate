@@ -16,7 +16,33 @@ function toArray<T>(value: T | T[] | undefined): T[] {
 // Evaluator 
 
 /**
- * Evaluate a PermissionSpec against the current user + resolved permissions.
+ * Evaluate a {@link PermissionSpec} against the current user and their resolved
+ * permission set, returning both a boolean result and a structured debug report.
+ *
+ * Five independent condition types are checked (when present in the spec):
+ * - `roles` — user must have **at least one** listed role.
+ * - `permissions` — user must have **all** listed permissions.
+ * - `anyPermission` — user must have **at least one** listed permission.
+ * - `rules` — **all** named custom rules must return `true`.
+ * - `check` — inline predicate must return `true`.
+ *
+ * Conditions are combined with AND by default; pass `require: "any"` for OR.
+ * An empty or omitted spec always returns `{ result: true }`.
+ *
+ * @param spec - The permission spec to evaluate. Pass `undefined` to grant unconditionally.
+ * @param user - The current user as provided to `<RBACProvider>`.
+ * @param allPermissions - Flat set of all effective permissions (inherited included).
+ * @param customRules - Named predicate functions registered on the provider.
+ * @returns An object containing the boolean `result` and a full {@link DebugReport}.
+ *
+ * @example
+ * const { result, report } = evaluate(
+ *   { roles: "admin", permissions: "delete:any" },
+ *   currentUser,
+ *   resolvedPermissions,
+ *   customRules,
+ * );
+ * if (!result) console.table(report.conditions);
  */
 export function evaluate(
   spec: PermissionSpec | undefined,

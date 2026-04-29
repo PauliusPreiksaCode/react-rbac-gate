@@ -35,12 +35,25 @@ function resolveRolePermissions(
 }
 
 /**
- * Build the full permission set for a list of user roles.
+ * Build the complete, flat permission set for a list of user roles by walking
+ * the role hierarchy graph and collecting every permission string reachable from
+ * each of the user's assigned roles.
  *
- * @param userRoles  - The roles assigned to the current user
- * @param roles      - Full roles config
- * @param hierarchy  - Full hierarchy config
- * @returns          - Flat Set of all effective permission strings
+ * Results for individual roles are memoised within a single call so each role
+ * is resolved at most once, even when referenced from multiple parent roles.
+ *
+ * @param userRoles - Roles currently assigned to the user (from {@link RBACUser.roles}).
+ * @param roles     - Full {@link RolesConfig} mapping role names to their direct permissions.
+ * @param hierarchy - Full {@link HierarchyConfig} mapping roles to their parent roles.
+ * @returns A `Set<string>` containing every effective permission string for the user.
+ *
+ * @example
+ * const perms = buildPermissionSet(
+ *   ["editor"],
+ *   { editor: ["write:own"], viewer: ["read:any"] },
+ *   { editor: ["viewer"] },          // editor inherits from viewer
+ * );
+ * // perms → Set { "write:own", "read:any" }
  */
 export function buildPermissionSet(
   userRoles: string[],

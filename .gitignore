@@ -6,6 +6,7 @@ yarn-error.log
 # Production
 build/
 dist/
+docs/
 
 # Environment variables
 .env

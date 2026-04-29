@@ -1,0 +1,32 @@
+{
+  "$schema": "https://typedoc.org/schema.json",
+  "name": "react-rbac-gate",
+  "entryPoints": [
+    "src/index.ts",
+    "src/hoc/index.ts"
+  ],
+  "entryPointStrategy": "resolve",
+  "out": "docs",
+  "tsconfig": "tsconfig.json",
+  "readme": "README.md",
+  "includeVersion": true,
+  "categorizeByGroup": true,
+  "groupOrder": [
+    "Components",
+    "Hooks",
+    "Higher-Order Components",
+    "Type Aliases",
+    "Interfaces",
+    "*"
+  ],
+  "sort": ["source-order"],
+  "excludeExternals": true,
+  "excludePrivate": true,
+  "excludeProtected": false,
+  "excludeInternal": true,
+  "searchInComments": true,
+  "suppressCommentWarningsInDeclarationFiles": true,
+  "navigationLinks": {
+    "GitHub": "https://github.com/PauliusPreiksaCode/react-rbac-gate"
+  }
+}

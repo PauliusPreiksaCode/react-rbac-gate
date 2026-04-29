@@ -1,3 +1,35 @@
+/**
+ * **react-rbac-gate** — Lightweight, flexible role-based access control for React.
+ *
+ * ## Quick start
+ *
+ * ```tsx
+ * // 1. Wrap your app
+ * <RBACProvider
+ *   user={{ roles: ["editor"] }}
+ *   roles={{ editor: ["read:any", "write:own"], viewer: ["read:any"] }}
+ *   hierarchy={{ editor: ["viewer"] }}
+ * >
+ *   <App />
+ * </RBACProvider>
+ *
+ * // 2. Gate JSX declaratively
+ * <Can permissions="write:own" fallback={<ReadOnly />}>
+ *   <Editor />
+ * </Can>
+ *
+ * // 3. Or check imperatively in a hook
+ * const can = usePermission();
+ * if (can({ roles: "admin" })) { ... }
+ * ```
+ *
+ * ## Entry points
+ * - `react-rbac-gate` — hooks, `<Can>`, provider, and all types (tree-shakeable).
+ * - `react-rbac-gate/hoc` — {@link hoc.withPermission | withPermission} and {@link hoc.RBACConsumer | RBACConsumer} for class components.
+ *
+ * @packageDocumentation
+ */
+
 // ─── Core ─────────────────────────────────────────────────────────────────────
 export { RBACProvider }      from "./core/RBACProvider";
 export type { RBACProviderProps } from "./core/RBACProvider";
